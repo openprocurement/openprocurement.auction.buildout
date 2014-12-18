@@ -1,14 +1,38 @@
 {
-	"TENDERS_API_URL": "${options['TENDERS_API_URL']}",
-	"TENDERS_API_VERSION": "${options['TENDERS_API_VERSION']}",
-	"TENDERS_API_TOKEN": "${options['TENDERS_API_TOKEN']}",
-	"AUCTIONS_URL": "${options['AUCTIONS_URL']}",
-	"HASH_SECRET": "${options['HASH_SECRET']}",
-	"COUCH_DATABASE": "${options['COUCH_DATABASE']}",
-	"OAUTH_CLIENT_ID": "${options['OAUTH_CLIENT_ID']}",
-	"OAUTH_CLIENT_SECRET": "${options['OAUTH_CLIENT_SECRET']}",
-	"OAUTH_BASE_URL": "${options['OAUTH_BASE_URL']}",
-	"OAUTH_REQUEST_TOKEN_URL": "${options['OAUTH_REQUEST_TOKEN_URL']}",
-	"OAUTH_ACCESS_TOKEN_URL": "${options['OAUTH_ACCESS_TOKEN_URL']}",
-	"OAUTH_AUTHORIZE_URL": "${options['OAUTH_AUTHORIZE_URL']}"
+  "TENDERS_API_URL": "${options['TENDERS_API_URL']}",
+  "TENDERS_API_VERSION": "${options['TENDERS_API_VERSION']}",
+  "TENDERS_API_TOKEN": "${options['TENDERS_API_TOKEN']}",
+  "AUCTIONS_URL": "${options['AUCTIONS_URL']}",
+  "HASH_SECRET": "${options['HASH_SECRET']}",
+  "COUCH_DATABASE": "${options['COUCH_DATABASE']}",
+  "OAUTH_CLIENT_ID": "${options['OAUTH_CLIENT_ID']}",
+  "OAUTH_CLIENT_SECRET": "${options['OAUTH_CLIENT_SECRET']}",
+  "OAUTH_BASE_URL": "${options['OAUTH_BASE_URL']}",
+  "OAUTH_REQUEST_TOKEN_URL": "${options['OAUTH_REQUEST_TOKEN_URL']}",
+  "OAUTH_ACCESS_TOKEN_URL": "${options['OAUTH_ACCESS_TOKEN_URL']}",
+  "OAUTH_AUTHORIZE_URL": "${options['OAUTH_AUTHORIZE_URL']}",
+  "STARTS_PORT": ${options['STARTS_PORT']},
+  "REDIS_URL": "${options['REDIS_URL']}",
+  "version": 1,
+  "formatters": {
+    "simpleFormater": {
+      "format": "%(name)s-%(levelname)s: %(message)s"
+    }
+  },
+  "handlers": {
+    "console": {
+      "class": "logging.StreamHandler",
+      "formatter": "simpleFormater"
+    }
+  },
+  "loggers": {
+    "Auction Worker": {
+      "level": "INFO",
+      "handlers": ["console"]
+    },
+    "apscheduler.executors.default": {
+      "level": "ERROR",
+      "handlers": ["console"]
+    }
+  }
 }
