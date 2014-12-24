@@ -28,10 +28,16 @@
   "loggers": {
     "Auction Worker": {
       "level": "INFO",
-      "handlers": ["console"]
+      "handlers": ["console"],
+      "propagate": false
     },
     "apscheduler.executors.default": {
       "level": "ERROR",
+      "handlers": ["console"],
+      "propagate": false
+    },
+    "": {
+      "level": "INFO",
       "handlers": ["console"]
     }
   }
