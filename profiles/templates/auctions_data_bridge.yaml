@@ -1,0 +1,40 @@
+main:
+  tenders_api_server: ${options['tenders_api_server']}
+  tenders_api_version: ${options['tenders_api_version']}
+  couch_url: ${options['couch_url']}
+  auctions_db: ${options['auctions_db']}
+  timezone: ${options['timezone']}
+  circus_endpoint: ${options['endpoint']}
+  circus_pubsub_endpoint: ${options['pubsub_endpoint']}
+  auction_worker: ${options['auction_worker']}
+  auction_worker_config: ${options['auction_worker_config']}
+
+version: 1
+
+formatters:
+  simple:
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: ERROR
+    formatter: simple
+    stream: ext://sys.stdout
+
+  journal:
+    class: systemd.journal.JournalHandler
+    level: DEBUG
+    SYSLOG_IDENTIFIER: AUCTIONS_DATA_BRIDGE
+    TENDERS_API_VERSION: "${options['tenders_api_version']}"
+    TENDERS_API_URL: ${options['tenders_api_server']}
+
+loggers:
+  openprocurement.auction.databridge:
+    handlers: [console, journal]
+    propagate: no
+    level: DEBUG
+
+  "":
+    handlers: [console, journal]
+    level: ERROR
