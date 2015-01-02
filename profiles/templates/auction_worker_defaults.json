@@ -22,23 +22,26 @@
   "handlers": {
     "console": {
       "class": "logging.StreamHandler",
-      "formatter": "simpleFormater"
+      "formatter": "simpleFormater",
+      "level": "ERROR"
+    },
+    "journal": {
+      "class": "systemd.journal.JournalHandler",
+      "formatter": "simpleFormater",
+      "level": "INFO"
     }
   },
   "loggers": {
     "Auction Worker": {
-      "level": "INFO",
-      "handlers": ["console"],
+      "handlers": ["console", "journal"],
       "propagate": false
     },
     "apscheduler.executors.default": {
-      "level": "ERROR",
-      "handlers": ["console"],
+      "handlers": ["console", "journal"],
       "propagate": false
     },
     "": {
-      "level": "INFO",
-      "handlers": ["console"]
+      "handlers": ["console", "journal"]
     }
   }
 }
