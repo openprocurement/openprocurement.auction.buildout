@@ -23,7 +23,7 @@ handlers:
     stream: ext://sys.stdout
 
   journal:
-    class: systemd.journal.JournalHandler
+    class: ExtendedJournalHandler.ExtendedJournalHandler
     level: DEBUG
     SYSLOG_IDENTIFIER: AUCTIONS_DATA_BRIDGE
     TENDERS_API_VERSION: "${options['tenders_api_version']}"
