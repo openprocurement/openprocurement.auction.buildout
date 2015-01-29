@@ -1,0 +1,11 @@
+[Unit]
+Description=Loglly PIPE
+
+[Service]
+Type=simple
+ExecStart=${parts.buildout.directory}/bin/journal_to_loggly
+Restart=always
+StandardOutput=null
+
+[Install]
+WantedBy=default.target
