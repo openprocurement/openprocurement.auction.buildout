@@ -28,7 +28,8 @@
     "journal": {
       "class": "ExtendedJournalHandler.ExtendedJournalHandler",
       "formatter": "simpleFormater",
-      "level": "INFO"
+      "level": "INFO",
+      "SYSLOG_IDENTIFIER": "AUCTION_WORKER"
     }
   },
   "loggers": {
