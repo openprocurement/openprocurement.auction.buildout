@@ -4,8 +4,6 @@ main:
   couch_url: ${options['couch_url']}
   auctions_db: ${options['auctions_db']}
   timezone: ${options['timezone']}
-  circus_endpoint: ${options['endpoint']}
-  circus_pubsub_endpoint: ${options['pubsub_endpoint']}
   auction_worker: ${options['auction_worker']}
   auction_worker_config: ${options['auction_worker_config']}
 
