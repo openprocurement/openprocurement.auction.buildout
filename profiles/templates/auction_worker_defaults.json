@@ -12,7 +12,9 @@
   "OAUTH_ACCESS_TOKEN_URL": "${options['OAUTH_ACCESS_TOKEN_URL']}",
   "OAUTH_AUTHORIZE_URL": "${options['OAUTH_AUTHORIZE_URL']}",
   "STARTS_PORT": ${options['STARTS_PORT']},
+  "WORKER_BIND_IP": "${options['WORKER_BIND_IP']}",
   "REDIS_URL": "${options['REDIS_URL']}",
+  "planning_procerude": "${options['planning_procerude']}",
   "version": 1,
   "formatters": {
     "simpleFormater": {
@@ -28,7 +30,8 @@
     "journal": {
       "class": "ExtendedJournalHandler.ExtendedJournalHandler",
       "formatter": "simpleFormater",
-      "level": "INFO"
+      "level": "INFO",
+      "SYSLOG_IDENTIFIER": "AUCTION_WORKER"
     }
   },
   "loggers": {
