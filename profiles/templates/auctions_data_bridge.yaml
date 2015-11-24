@@ -17,13 +17,13 @@ formatters:
 handlers:
   console:
     class: logging.StreamHandler
-    level: DEBUG
+    level: ERROR
     formatter: simple
     stream: ext://sys.stdout
 
   journal:
     class: ExtendedJournalHandler.ExtendedJournalHandler
-    level: ERROR
+    level: INFO
     SYSLOG_IDENTIFIER: AUCTIONS_DATA_BRIDGE
     TENDERS_API_VERSION: "${options['tenders_api_version']}"
     TENDERS_API_URL: ${options['tenders_api_server']}
