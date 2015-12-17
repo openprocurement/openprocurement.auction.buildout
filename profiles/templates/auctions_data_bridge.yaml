@@ -1,6 +1,7 @@
 main:
   tenders_api_server: ${options['tenders_api_server']}
-  tenders_api_version: ${options['tenders_api_version']}
+  tenders_api_version: "${options['tenders_api_version']}"
+  tenders_api_token: ${options['tenders_api_token']}
   couch_url: ${options['couch_url']}
   auctions_db: ${options['auctions_db']}
   timezone: ${options['timezone']}
@@ -22,7 +23,7 @@ handlers:
 
   journal:
     class: ExtendedJournalHandler.ExtendedJournalHandler
-    level: DEBUG
+    level: INFO
     SYSLOG_IDENTIFIER: AUCTIONS_DATA_BRIDGE
     TENDERS_API_VERSION: "${options['tenders_api_version']}"
     TENDERS_API_URL: ${options['tenders_api_server']}
@@ -35,4 +36,4 @@ loggers:
 
   "":
     handlers: [console, journal]
-    level: ERROR
+    level: DEBUG
