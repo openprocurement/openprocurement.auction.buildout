@@ -14,6 +14,10 @@
   "STARTS_PORT": ${options['STARTS_PORT']},
   "WORKER_BIND_IP": "${options['WORKER_BIND_IP']}",
   "REDIS_URL": "${options['REDIS_URL']}",
+  "sentinel": [["localhost", 12007]],
+  "redis_password": "${options['redis_password']}",
+  "redis_database": "${options['redis_database']}",
+  "sentinel_cluster_name": "${options['sentinel_cluster_name']}",
   "planning_procerude": "${options['planning_procerude']}",
   "version": 1,
   "formatters": {
