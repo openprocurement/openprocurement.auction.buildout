@@ -14,7 +14,7 @@
   "STARTS_PORT": {{STARTS_PORT}},
   "WORKER_BIND_IP": "{{WORKER_BIND_IP}}",
   "REDIS_URL": "{{REDIS_URL}}",
-  "sentinel": [["localhost", 12007]],
+  "sentinel": {{sentinels_list}},
   "redis_password": "{{redis_password}}",
   "redis_database": "{{redis_database}}",
   "sentinel_cluster_name": "{{sentinel_cluster_name}}",
