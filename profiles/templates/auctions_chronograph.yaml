@@ -1,0 +1,54 @@
+main:
+  tenders_api_server: {{tenders_api_server}}
+  tenders_api_version: "{{tenders_api_version}}"
+  tenders_api_token: {{tenders_api_token}}
+  couch_url: {{couch_url}}
+  auctions_db: {{auctions_db}}
+  timezone: {{timezone}}
+  auction_worker: {{auction_worker}}
+  auction_worker_config: {{auction_worker_config}}
+
+version: 1
+
+formatters:
+  simple:
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: simple
+    stream: ext://sys.stdout
+
+  journal:
+    class: ExtendedJournalHandler.ExtendedJournalHandler
+    level: INFO
+    SYSLOG_IDENTIFIER: AUCTIONS_CHRONOGRAPH
+    TENDERS_API_VERSION: "{{tenders_api_version}}"
+    TENDERS_API_URL: {{tenders_api_server}}
+
+loggers:
+  Auction Chronograph:
+    handlers: [console]
+    propagate: no
+    level: INFO
+
+  apscheduler.scheduler:
+    handlers: [console]
+    propagate: no
+    level: ERROR
+
+  openprocurement.auction.sync:
+    handlers: [console]
+    propagate: no
+    level: INFO
+
+  apscheduler.executors.default:
+    handlers: [console]
+    propagate: no
+    level: ERROR
+
+  "":
+    handlers: [console, journal]
+    level: DEBUG
