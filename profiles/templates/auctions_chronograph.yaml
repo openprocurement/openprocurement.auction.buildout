@@ -17,7 +17,7 @@ formatters:
 handlers:
   console:
     class: logging.StreamHandler
-    level: DEBUG
+    level: ERROR
     formatter: simple
     stream: ext://sys.stdout
 
@@ -30,25 +30,25 @@ handlers:
 
 loggers:
   Auction Chronograph:
-    handlers: [console]
+    handlers: [console, journal]
     propagate: no
     level: INFO
 
   apscheduler.scheduler:
-    handlers: [console]
+    handlers: [console, journal]
     propagate: no
     level: ERROR
 
   openprocurement.auction.sync:
-    handlers: [console]
+    handlers: [console, journal]
     propagate: no
-    level: INFO
+    level: ERROR
 
   apscheduler.executors.default:
-    handlers: [console]
+    handlers: [console, journal]
     propagate: no
     level: ERROR
 
   "":
     handlers: [console, journal]
-    level: DEBUG
+    level: ERROR
