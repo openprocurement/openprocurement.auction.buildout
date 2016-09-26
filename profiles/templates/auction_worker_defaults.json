@@ -19,6 +19,7 @@
   "redis_database": "{{redis_database}}",
   "sentinel_cluster_name": "{{sentinel_cluster_name}}",
   "planning_procerude": "{{planning_procerude}}",
+  "sandbox_mode": "{{sandbox_mode}}",
   "version": 1,
   "formatters": {
     "simpleFormater": {
