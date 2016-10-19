@@ -9,6 +9,7 @@ main:
   auction_worker_config: {{auction_worker_config}}
   limit_auctions: {{limit_auctions|default(500)}}
   limit_free_memory: {{limit_free_memory|default(0.15)}}
+  web_app: {{web_app|default('')}}
 
 version: 1
 
