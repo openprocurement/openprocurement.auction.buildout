@@ -20,6 +20,12 @@
   "sentinel_cluster_name": "{{sentinel_cluster_name}}",
   "planning_procerude": "{{planning_procerude}}",
   "sandbox_mode": "{{sandbox_mode}}",
+  "with_document_service": {{ with_document_service |default('false') }},
+  "DOCUMENT_SERVICE": {
+    "url": "{{ document_service_url| default('') }}",
+    "username": "{{ document_service_username| default('') }}",
+    "password": "{{ document_service_password| default('') }}"
+  },
   "version": 1,
   "formatters": {
     "simpleFormater": {

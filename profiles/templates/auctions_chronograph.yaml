@@ -7,6 +7,9 @@ main:
   timezone: {{timezone}}
   auction_worker: {{auction_worker}}
   auction_worker_config: {{auction_worker_config}}
+  {% for key, value in parts.get('auction_worker_configs', {}).items() %}
+  {{ key }}: {{ value }}
+  {% endfor %}
   limit_auctions: {{limit_auctions|default(500)}}
   limit_free_memory: {{limit_free_memory|default(0.15)}}
   web_app: {{web_app|default('')}}
