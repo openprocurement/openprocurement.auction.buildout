@@ -1,7 +1,8 @@
 {
-  "TENDERS_API_URL": "{{TENDERS_API_URL}}",
-  "TENDERS_API_VERSION": "{{TENDERS_API_VERSION}}",
-  "TENDERS_API_TOKEN": "{{TENDERS_API_TOKEN}}",
+  "resource_api_server": "{{resource_api_url}}",
+  "resource_api_version": "{{resource_api_version}}",
+  "resource_api_token": "{{resource_api_token}}",
+  "resource_name": "{{resource_name}}",
   "AUCTIONS_URL": "{{AUCTIONS_URL}}",
   "HASH_SECRET": "{{HASH_SECRET}}",
   "COUCH_DATABASE": "{{COUCH_DATABASE}}",
@@ -36,7 +37,7 @@
     "console": {
       "class": "logging.StreamHandler",
       "formatter": "simpleFormater",
-      "level": "ERROR"
+      "level": "DEBUG"
     },
     "journal": {
       "class": "ExtendedJournalHandler.ExtendedJournalHandler",

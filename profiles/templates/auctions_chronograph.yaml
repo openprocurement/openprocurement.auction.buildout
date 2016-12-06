@@ -1,7 +1,8 @@
 main:
-  tenders_api_server: {{tenders_api_server}}
-  tenders_api_version: "{{tenders_api_version}}"
-  tenders_api_token: {{tenders_api_token}}
+  resource_api_server: {{resource_api_url }}
+  resource_api_version: "{{resource_api_version}}"
+  resource_api_token: {{resource_api_token}}
+  resource_name: {{ resource_name }}
   couch_url: {{couch_url}}
   auctions_db: {{auctions_db}}
   timezone: {{timezone}}
@@ -31,8 +32,8 @@ handlers:
     class: ExtendedJournalHandler.ExtendedJournalHandler
     level: INFO
     SYSLOG_IDENTIFIER: AUCTIONS_CHRONOGRAPH
-    TENDERS_API_VERSION: "{{tenders_api_version}}"
-    TENDERS_API_URL: {{tenders_api_server}}
+    TENDERS_API_VERSION: "{{resource_api_version}}"
+    TENDERS_API_URL: {{resource_api_url}}
 
 loggers:
   Auction Chronograph:

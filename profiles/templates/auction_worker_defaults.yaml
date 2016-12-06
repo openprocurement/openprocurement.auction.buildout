@@ -1,0 +1,60 @@
+---
+resource_api_server: "{{resource_api_url}}"
+resource_api_version: "{{resource_api_version}}"
+resource_api_token: "{{resource_api_token}}"
+resource_name: "{{resource_name}}"
+AUCTIONS_URL: "{{AUCTIONS_URL}}"
+HASH_SECRET: "{{HASH_SECRET}}"
+COUCH_DATABASE: "{{COUCH_DATABASE}}"
+OAUTH_CLIENT_ID: "{{OAUTH_CLIENT_ID}}"
+OAUTH_CLIENT_SECRET: "{{OAUTH_CLIENT_SECRET}}"
+OAUTH_BASE_URL: "{{OAUTH_BASE_URL}}"
+OAUTH_REQUEST_TOKEN_URL: "{{OAUTH_REQUEST_TOKEN_URL}}"
+OAUTH_ACCESS_TOKEN_URL: "{{OAUTH_ACCESS_TOKEN_URL}}"
+OAUTH_AUTHORIZE_URL: "{{OAUTH_AUTHORIZE_URL}}"
+STARTS_PORT: {{STARTS_PORT}}
+WORKER_BIND_IP: "{{WORKER_BIND_IP}}"
+REDIS_URL: "{{REDIS_URL}}"
+sentinel: {{sentinels_list}}
+redis_password: "{{redis_password}}"
+redis_database: "{{redis_database}}"
+sentinel_cluster_name: "{{sentinel_cluster_name}}"
+planning_procerude: "{{planning_procerude}}"
+sandbox_mode: "{{sandbox_mode}}"
+with_document_service: {{ with_document_service |default('false') }}
+DOCUMENT_SERVICE:
+  url: "{{ document_service_url| default('') }}"
+  username: "{{ document_service_username| default('') }}"
+  password: "{{ document_service_password| default('') }}"
+version: 1
+formatters:
+  simpleFormater:
+    format: "%(name)s-%(levelname)s: %(message)s"
+handlers:
+  console:
+    class: logging.StreamHandler
+    formatter: simpleFormater
+    level: DEBUG
+  journal:
+    class: ExtendedJournalHandler.ExtendedJournalHandler
+    formatter: simpleFormater
+    level: INFO
+    SYSLOG_IDENTIFIER: AUCTION_WORKER
+loggers:
+  Auction Worker:
+    level: INFO
+    handlers:
+    - console
+    - journal
+    propagate: false
+  apscheduler.executors.default:
+    level: INFO
+    handlers:
+    - console
+    - journal
+    propagate: false
+  '':
+    level: INFO
+    handlers:
+    - console
+    - journal
