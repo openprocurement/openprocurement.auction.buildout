@@ -34,7 +34,7 @@ handlers:
   console:
     class: logging.StreamHandler
     formatter: simpleFormater
-    level: DEBUG
+    level: ERROR
   journal:
     class: ExtendedJournalHandler.ExtendedJournalHandler
     formatter: simpleFormater

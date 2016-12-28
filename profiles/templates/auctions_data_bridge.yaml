@@ -18,7 +18,7 @@ formatters:
 handlers:
   console:
     class: logging.StreamHandler
-    level: DEBUG
+    level: ERROR
     formatter: simple
     stream: ext://sys.stdout
 
@@ -33,13 +33,13 @@ loggers:
   openprocurement.auction.databridge:
     handlers: [console, journal]
     propagate: no
-    level: DEBUG
+    level: INFO
 
-  openprocurement.auction.helpers.sync:
+  openprocurement_client.sync:
     handlers: [console, journal]
     propagate: no
     level: INFO
 
   "":
     handlers: [console, journal]
-    level: DEBUG
+    level: INFO
