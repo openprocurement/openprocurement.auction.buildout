@@ -1,0 +1,24 @@
+{
+  "styles": ["src/assets/css/starter-template.css",
+             "src/lib/angular-growl-2/build/angular-growl.min.css"],
+  "fonts": "src/assets/fonts/*",
+  "html": [
+    {"name": "index",   "scripts": ["/index.js"],   "title": "Auction Software", "controller": "ListingController"},
+    {"name": "archive", "scripts": ["/archive.js"], "title": "Auction Software", "controller": "ArchiveController"},
+    {"name": "tender",  "scripts": ["/vendor.js", "/auction.js"], "title": "Auction Software", "controller": "AuctionController"}
+  ],
+  "js": {
+    "listApp": "src/app/index.js",
+    "archiveApp": "src/app/archive.js",
+    "auctionApp": "src/app/auction.js"
+  },
+  "img": {
+    "png": "src/assets/img/*.png",
+    "icons": "src/assets/img/img/*.png"
+  },
+  "outDir": "{{ parts.buildout.directory}}/parts/static",
+
+  "buildDir": "build",
+  "dbUrl": "http://localhost:9000/auctions",
+  "auctions_server": "http://localhost:9001"
+}
