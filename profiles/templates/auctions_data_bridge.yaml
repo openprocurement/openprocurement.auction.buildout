@@ -27,18 +27,23 @@ handlers:
     SYSLOG_IDENTIFIER: AUCTIONS_DATA_BRIDGE
     TENDERS_API_VERSION: "{{tenders_api_version}}"
     TENDERS_API_URL: {{tenders_api_server}}
-
+{% if 'statsd' in parts['auctions_data_bridge.yaml'] %}
+  statsd:
+    level: DEBUG
+    class: statsdhandler.StatsdHandler
+    config_path: "{{handler_config}}"
+{% endif %}
 loggers:
   openprocurement.auction.databridge:
-    handlers: [console, journal]
+    handlers: [console, journal{% if 'statsd' in parts['auctions_data_bridge.yaml'] %},statsd {% endif %}]
     propagate: no
     level: DEBUG
 
   openprocurement_client.sync:
-    handlers: [console, journal]
+    handlers: [console, journal{% if 'statsd' in parts['auctions_data_bridge.yaml'] %},statsd {% endif %}]
     propagate: no
-    level: INFO
-    
+    level: DEBUG
+
   "":
     handlers: [console, journal]
     level: DEBUG

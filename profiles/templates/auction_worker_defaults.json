@@ -43,21 +43,33 @@
       "formatter": "simpleFormater",
       "level": "INFO",
       "SYSLOG_IDENTIFIER": "AUCTION_WORKER"
-    }
+    }{% if 'statsd' in parts['auction_worker_defaults.json'] %},
+    "statsd": {
+      "class": "statsdhandler.StatsdHandler",
+      "level": "DEBUG",
+      "config_path": "{{handler_config}}"
+    }{% endif %}
   },
   "loggers": {
     "Auction Worker": {
-      "level": "INFO",
-      "handlers": ["console", "journal"],
+      "level": "DEBUG",
+      "handlers": ["console", "journal"{% if 'statsd' in parts['auction_worker_defaults.json'] %},"statsd" {% endif %}],
       "propagate": false
     },
     "apscheduler.executors.default": {
-      "level": "INFO",
-      "handlers": ["console", "journal"],
+      "level": "DEBUG",
+      "handlers": ["console", "journal"{% if 'statsd' in parts['auction_worker_defaults.json'] %},"statsd" {% endif %}],
       "propagate": false
     },
+    {% if 'statsd' in parts['auction_worker_defaults.json'] %}
+    "pyramidtiming.utils": {
+      "level": "DEBUG",
+      "handlers": ["console"{% if 'statsd' in parts['auction_worker_defaults.json'] %},"statsd" {% endif %}],
+      "propagate": false
+    },
+    {% endif %}
     "": {
-      "level": "INFO",
+      "level": "DEBUG",
       "handlers": ["console", "journal"]
     }
   }

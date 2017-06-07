@@ -27,7 +27,12 @@ handlers:
     level: ERROR
     formatter: simple
     stream: ext://sys.stdout
-
+{% if 'statsd' in parts['auctions_chronograph.yaml'] %}
+  statsd:
+    level: DEBUG
+    class: statsdhandler.StatsdHandler
+    config_path: "{{handler_config}}"
+{% endif %}
   journal:
     class: ExtendedJournalHandler.ExtendedJournalHandler
     level: INFO
@@ -37,25 +42,25 @@ handlers:
 
 loggers:
   Auction Chronograph:
-    handlers: [console, journal]
+    handlers: [console, journal{% if 'statsd' in parts['auctions_chronograph.yaml'] %},statsd {% endif %}]
     propagate: no
-    level: INFO
+    level: DEBUG
 
   apscheduler.scheduler:
-    handlers: [console, journal]
+    handlers: [console, journal{% if 'statsd' in parts['auctions_chronograph.yaml'] %},statsd {% endif %}]
     propagate: no
-    level: ERROR
+    level: DEBUG
 
   openprocurement.auction.sync:
-    handlers: [console, journal]
+    handlers: [console, journal{% if 'statsd' in parts['auctions_chronograph.yaml'] %},statsd {% endif %}]
     propagate: no
-    level: ERROR
+    level: DEBUG
 
   apscheduler.executors.default:
-    handlers: [console, journal]
+    handlers: [console, journal{% if 'statsd' in parts['auctions_chronograph.yaml'] %},statsd {% endif %}]
     propagate: no
-    level: ERROR
+    level: DEBUG
 
   "":
     handlers: [console, journal]
-    level: ERROR
+    level: DEBUG

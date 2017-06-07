@@ -12,13 +12,18 @@ handlers:
     level: INFO
     formatter: simple
     stream: ext://sys.stdout
-
+{% if 'statsd' in parts['penstock.yaml'] %}
+  statsd:
+    class: statsdhandler.StatsdHandler
+    level: DEBUG
+    config_path: "{{handler_config}}"
+{% endif %}
 loggers:
   replichecker:
-    handlers: [console]
+    handlers: [console{% if 'statsd' in parts['penstock.yaml'] %},statsd {% endif %}]
     propagate: no
-    level: INFO
+    level: DEBUG
 
   "":
     handlers: [console]
-    level: INFO
+    level: DEBUG
