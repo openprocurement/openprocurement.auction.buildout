@@ -14,6 +14,7 @@ main:
   limit_free_memory: {{limit_free_memory|default(0.15)}}
   web_app: {{web_app|default('')}}
   use_consul: {{ use_consul }}
+  plugins: {{ plugins }}
 
 version: 1
 
