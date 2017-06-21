@@ -7,6 +7,7 @@ main:
   timezone: {{timezone}}
   auction_worker: {{auction_worker}}
   auction_worker_config: {{auction_worker_config}}
+  plugins: {{ plugins }}
 
 version: 1
 
