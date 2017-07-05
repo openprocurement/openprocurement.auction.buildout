@@ -8,9 +8,9 @@
     {"name": "tender",  "scripts": ["/vendor.js", "/auction_app.js"], "title": "Auction Software", "controller": "AuctionController"}
   ],
   "js": {
-    "listApp": "src/app/index.js",
-    "archiveApp": "src/app/archive.js",
-    "auctionApp": "src/app/auction.js"
+    "listApp": "src/app/index_app.js",
+    "archiveApp": "src/app/archive_app.js",
+    "auctionApp": "src/app/auction_app.js"
   },
   "img": {
     "png": "src/assets/img/*.png",
@@ -20,5 +20,5 @@
 
   "buildDir": "build",
   "dbUrl": "http://localhost:9000/auctions",
-  "auctions_server": "http://localhost:9001"
+  "auctions_server":  "http://localhost:9001"
 }
