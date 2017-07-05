@@ -16,7 +16,7 @@
     "png": "src/assets/img/*.png",
     "icons": "src/assets/img/img/*.png"
   },
-  "outDir": "/data/yarsanich/auctions/no-static/openprocurement.auction.buildout/parts/static",
+  "outDir": "{{ parts.buildout.directory}}/parts/static",
 
   "buildDir": "build",
   "dbUrl": "http://localhost:9000/auctions",
