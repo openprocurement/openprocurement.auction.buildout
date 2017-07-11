@@ -8,6 +8,9 @@ main:
   auction_worker: {{auction_worker}}
   auction_worker_config: {{auction_worker_config}}
   plugins: {{ plugins }}
+  {% for key, value in parts.get('auction_plugins_workers', {}).items() %}
+    {{ key }}: {{ value }}
+  {% endfor %}
 
 version: 1
 
