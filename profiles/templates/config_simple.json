@@ -13,8 +13,8 @@
     "auctionApp": "src/app/auction_app_simple.js"
   },
   "img": {
-    "png": "src/assets/img/*.png",
-    "icons": "src/assets/img/img/*.png"
+    "png": "src/assets/img/img/*.png",
+    "icons": "src/assets/img/*.png"
   },
   "outDir": "{{ parts.buildout.directory}}/parts/simple/",
 
