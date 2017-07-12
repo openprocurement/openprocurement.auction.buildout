@@ -16,7 +16,7 @@ main:
   use_consul: {{ use_consul }}
   plugins: {{ plugins }}
   {% for key, value in parts.get('auction_plugins_workers', {}).items() %}
-    {{ key }}: {{ value }}
+  {{ key }}: {{ value }}
   {% endfor %}
 
 
