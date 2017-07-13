@@ -14,9 +14,15 @@ main:
   limit_free_memory: {{limit_free_memory|default(0.15)}}
   web_app: {{web_app|default('')}}
   use_consul: {{ use_consul }}
-  plugins: {{ plugins }}
-  {% for key, value in parts.get('auction_plugins_workers', {}).items() %}
-    {{ key }}: {{ value }}
+  plugins: [{{ plugins }}]
+  {% for plugin in plugins.split(',') %}
+  {%set name = plugin|trim%}
+  {% if name in parts %}
+  {{ name }}:
+    {% for key, value in parts.get(name, {}).items() %}
+      {{ key }}: {{ value }}
+    {% endfor %}
+  {% endif %}
   {% endfor %}
 
 
