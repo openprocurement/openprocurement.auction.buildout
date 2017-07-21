@@ -1,10 +1,8 @@
 {
-  "styles": ["src/lib/angular-growl-2/build/angular-growl.min.css", 
+  "styles": ["src/lib/angular-growl-2/build/angular-growl.min.css",
              "src/assets/css/starter-template.css"],
   "fonts": "src/assets/fonts/*",
   "html": [
-    {"name": "index",   "scripts": ["/esco/static/vendor.js", "/esco/static/index_app_esco.js"],   "title": "Auction Software", "controller": "ListingController"},
-    {"name": "archive", "scripts": ["/esco/static/vendor.js", "/esco/static/archive_app_esco.js"], "title": "Auction Software", "controller": "ArchiveController"},
     {"name": "tender",  "scripts": ["/esco/static/vendor.js", "/esco/static/auction_app_esco.js"], "title": "Auction Software", "controller": "AuctionController"}
   ],
   "js": {
