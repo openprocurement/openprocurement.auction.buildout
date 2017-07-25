@@ -1,10 +1,10 @@
 [buildout]
 extends =
     profiles/devel.cfg
-parts +=
-    autostart
 
-[ports]
-base = 10000
-3 = 10008
-1 = 10003
+[versions]
+setuptools=11.3
+circus = 0.13.0
+
+[sources]
+chromedriver = git https://github.com/enkidulan/chromedriver.git
