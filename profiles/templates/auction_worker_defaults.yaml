@@ -33,7 +33,7 @@ handlers:
   console:
     class: logging.StreamHandler
     formatter: simpleFormater
-    level: ERROR
+    level: INFO
   journal:
     class: ExtendedJournalHandler.ExtendedJournalHandler
     formatter: simpleFormater
