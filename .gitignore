@@ -7,9 +7,12 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+pip-selfcheck*
+*~
 env/
 etc/
 build/
+include/
 develop-eggs/
 dist/
 downloads/
