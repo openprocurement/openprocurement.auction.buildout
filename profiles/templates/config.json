@@ -5,30 +5,43 @@
     ],
     "fonts": "src/assets/fonts/*",
     "html": [
+	{% if with_index %}
 	{
 	    "name": "index",
 	    "scripts": [
-		"/simple/static/vendor.js",
-		"/simple/static/index_app_simple.js"
+		"/{{ parts['nginx.conf'].static_path }}/vendor.js",
+		"/{{ parts['nginx.conf'].static_path }}/{{ index_script }}"
+	    ],
+	    "styles": [
+	        "/{{ parts['nginx.conf'].static_path }}/css/{{ main_css }}"
 	    ],
 	    "title": "Auction Software",
 	    "controller": "ListingController"
 	},
+	{% endif %}
+	{% if with_archive %}
 	{
 	    "name": "archive",
 	    "scripts": [
-		"/simple/static/vendor.js",
-		"/simple/static/archive_app_simple.js"
+		"/{{ parts['nginx.conf'].static_path }}/vendor.js",
+		"/{{ parts['nginx.conf'].static_path }}/{{ index_script }}"
 	    ],
+	    "styles": [
+	        "/{{ parts['nginx.conf'].static_path }}/css/{{ main_css }}"
+	    ], 
 	    "title": "Auction Software",
 	    "controller": "ArchiveController"
 	},
+	{% endif %}
 	{
-	    "name": "tender",
+	    "name": "{{ name }}",
 	    "scripts": [
-		"/simple/static/vendor.js",
-		"/simple/static/auction_app_simple.js"
+		"/{{ parts['nginx.conf'].static_path }}/vendor.js",
+		"/{{ parts['nginx.conf'].static_path }}/{{ app_script }}"
 	    ],
+ 	    "styles": [
+	        "/{{ parts['nginx.conf'].static_path }}/css/{{ main_css }}"
+	    ], 
 	    "title": "Auction Software",
 	    "controller": "AuctionController"
 	}
@@ -45,6 +58,8 @@
     "outDir": "{{ parts.buildout.directory}}/parts/",
 
     "buildDir": "build",
-    "dbUrl": "http://localhost:9000/auctions",
-    "auctions_server":  "http://localhost:9001"
+    "app_name": "{{ app_script }}",
+    "main_css": "{{ main_css }}",
+    "db_name": "{{ parts['project'].auctions_couchdb_databese_name }}",
+    "name": "{{ name }}"
 }
