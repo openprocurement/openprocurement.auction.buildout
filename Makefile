@@ -1,8 +1,14 @@
 
 PACKAGE_NAME = openprocurement.auction
 
+default: install;
 
-default:
+install:
+	@test -d "bin" || virtualenv . --no-site-packages --no-site-packages
+	@test -x "bin/buildout" || bin/pip install -r requirements.txt
+	bin/buildout -N
+
+help:
 	@echo "Makefile for $(PACKAGE_NAME)"
 	@echo
 	@echo 'Usage:'
@@ -10,7 +16,5 @@ default:
 	@echo '    make install    install the package in a virtual environment'
 	@echo
 
-install:
-	@test -d "bin" || virtualenv . --no-site-packages --no-site-packages
-	@test -x "bin/buildout" || bin/pip install -r requirements.txt
-	bin/buildout -N
+clean:
+	@rm -rf eggs/ develop-eggs/ bin/ etc/ lib/ parts/ include/ logs/
