@@ -15,6 +15,7 @@ from subprocess import check_output
 PWD = os.path.dirname(os.path.realpath(__file__))
 CWD = os.getcwd()
 TENDER = os.path.join(PWD, 'src/openprocurement.auction.worker/openprocurement/auction/worker/tests/functional/data/tender_simple.json')
+WORKER = 'auction_worker'
 
 
 @contextlib.contextmanager
@@ -32,14 +33,14 @@ def update_auctionPeriod(path, auction_type):
 
 def planning(tender_file_path, auction_id):
     with update_auctionPeriod(tender_file_path, auction_type='simple') as auction_file:
-        os.system('{0}/bin/auction_insider planning {1}'
-                     ' {0}/etc/auction_worker_defaults.yaml --planning_procerude partial_db --auction_info {2}'.format(CWD, auction_id, auction_file))
+        os.system('{0}/bin/{1} planning {2}'
+                     ' {0}/etc/auction_worker_defaults.yaml --planning_procerude partial_db --auction_info {3}'.format(CWD, WORKER, auction_id, auction_file))
     os.system('sleep 3')
 
 def run(tender_file_path, auction_id):
     with update_auctionPeriod(tender_file_path, auction_type='simple') as auction_file:
-        check_output('{0}/bin/auction_insider run {1}'
-                     ' {0}/etc/auction_worker_defaults.yaml --planning_procerude partial_db --auction_info {2}'.format(CWD, auction_id, auction_file).split())
+        check_output('{0}/bin/{1} run {2}'
+                     ' {0}/etc/auction_worker_defaults.yaml --planning_procerude partial_db --auction_info {3}'.format(CWD, WORKER, auction_id, auction_file).split())
     os.system('sleep 3')
 
 if __name__ == '__main__':
