@@ -9,7 +9,7 @@ main:
   auction_worker: {{auction_worker}}
   auction_worker_config: {{auction_worker_config}}
   plugins: [{{ parts['project'].plugins }}]
-  {% for plugin in plugins.split(',') %}
+  {% for plugin in parts['project'].plugins.split(',') %}
   {%set name = plugin|trim%}
   {% if name in parts %}
   {{ name }}:

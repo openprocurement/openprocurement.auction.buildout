@@ -16,7 +16,7 @@ main:
   web_app: {{web_app|default('')}}
   use_consul: {{ use_consul }}
   plugins: [{{ parts['project'].plugins }}]
-  {% for plugin in plugins.split(',') %}
+  {% for plugin in parts['project'].plugins.split(',') %}
   {%set name = plugin|trim%}
   {% if name in parts %}
   {{ name }}:
