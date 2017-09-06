@@ -7,7 +7,12 @@ main:
   timezone: {{timezone}}
   auction_worker: {{auction_worker}}
   auction_worker_config: {{auction_worker_config}}
-
+  retrievers_params:
+     down_requests_sleep: 0.1
+     up_requests_sleep: 0.1
+     up_wait_sleep: 30
+     up_wait_sleep_min: 5
+     queue_size: 501
 version: 1
 
 formatters:
