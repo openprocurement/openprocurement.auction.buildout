@@ -61,5 +61,6 @@
     "app_name": "{{ app_script }}",
     "main_css": "{{ main_css }}",
     "db_name": "{{ parts['project'].auctions_couchdb_databese_name }}",
-    "name": "{{ name }}"
+    "name": "{{ name }}",
+    "devel": "{{ devel }}"
 }
