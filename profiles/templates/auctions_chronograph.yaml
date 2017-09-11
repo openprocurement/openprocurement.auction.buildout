@@ -7,12 +7,14 @@ main:
   timezone: {{timezone}}
   auction_worker: {{auction_worker}}
   auction_worker_config: {{auction_worker_config}}
-  retrievers_params:
-     down_requests_sleep: {{down_requests_sleep}}
-     up_requests_sleep: {{up_requests_sleep}}
-     up_wait_sleep: {{up_wait_sleep}}
-     up_wait_sleep_min: {{up_wait_sleep_min}}
-     queue_size: {{queue_size}}
+  {% for key, value in parts.get('auction_worker_configs', {}).items() %}
+  {{ key }}: {{ value }}
+  {% endfor %}
+  limit_auctions: {{limit_auctions|default(500)}}
+  limit_free_memory: {{limit_free_memory|default(0.15)}}
+  web_app: {{web_app|default('')}}
+  use_consul: {{ use_consul }}
+
 version: 1
 
 formatters:
@@ -29,21 +31,31 @@ handlers:
   journal:
     class: ExtendedJournalHandler.ExtendedJournalHandler
     level: INFO
-    SYSLOG_IDENTIFIER: AUCTIONS_DATA_BRIDGE
+    SYSLOG_IDENTIFIER: AUCTIONS_CHRONOGRAPH
     TENDERS_API_VERSION: "{{tenders_api_version}}"
     TENDERS_API_URL: {{tenders_api_server}}
 
 loggers:
-  openprocurement.auction.databridge:
-    handlers: [console, journal]
-    propagate: no
-    level: DEBUG
-
-  openprocurement_client.sync:
+  Auction Chronograph:
     handlers: [console, journal]
     propagate: no
     level: INFO
-    
+
+  apscheduler.scheduler:
+    handlers: [console, journal]
+    propagate: no
+    level: ERROR
+
+  openprocurement.auction.sync:
+    handlers: [console, journal]
+    propagate: no
+    level: ERROR
+
+  apscheduler.executors.default:
+    handlers: [console, journal]
+    propagate: no
+    level: ERROR
+
   "":
     handlers: [console, journal]
-    level: DEBUG
+    level: ERROR

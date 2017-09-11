@@ -1,0 +1,10 @@
+[buildout]
+extends =
+    profiles/devel.cfg
+parts +=
+    autostart
+
+[ports]
+base = 10000
+3 = 10008
+1 = 10003
