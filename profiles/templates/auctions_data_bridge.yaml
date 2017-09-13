@@ -18,8 +18,12 @@ main:
     {% endfor %}
   {% endif %}
   {% endfor %}
-
-
+  retrievers_params:
+     down_requests_sleep: {{down_requests_sleep}}
+     up_requests_sleep: {{up_requests_sleep}}
+     up_wait_sleep: {{up_wait_sleep}}
+     up_wait_sleep_min: {{up_wait_sleep_min}}
+     queue_size: {{queue_size}}
 version: 1
 
 formatters:
@@ -46,7 +50,7 @@ loggers:
     propagate: no
     level: INFO
 
-  openprocurement.auction.helpers.sync:
+  openprocurement_client.sync:
     handlers: [console, journal]
     propagate: no
     level: INFO
