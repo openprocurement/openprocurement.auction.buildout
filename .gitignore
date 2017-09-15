@@ -17,6 +17,7 @@ develop-eggs/
 dist/
 downloads/
 eggs/
+include/
 lib/
 lib64/
 logs/
@@ -25,6 +26,8 @@ sdist/
 var/
 *.egg-info/
 .installed.cfg
+pip-selfcheck.json
+lib64
 *.egg
 bin/*
 src/*
