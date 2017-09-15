@@ -1,10 +1,10 @@
 [buildout]
 extends =
     profiles/devel.cfg
-parts +=
-    autostart
 
-[ports]
-base = 10000
-3 = 10008
-1 = 10003
+[sources]
+chromedriver = git https://github.com/enkidulan/chromedriver.git
+
+[project]
+resource_api_url = https://lb.api-sandbox.ea.openprocurement.org/
+resource_api_version = 0

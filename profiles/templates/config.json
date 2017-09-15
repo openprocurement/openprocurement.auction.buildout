@@ -1,0 +1,58 @@
+{
+    "styles": ["src/lib/angular-growl-2/build/angular-growl.min.css",
+               "src/assets/css/starter-template.css"
+    ],
+    "fonts": "src/assets/fonts/*",
+    "html": [
+    	{% if with_index %}
+    	{
+    	    "name": "index",
+    	    "scripts": [
+            "/{{ parts['nginx.conf'].static_path }}/vendor.js",
+        		"/{{ parts['nginx.conf'].static_path }}/index_app_simple.js"
+    	    ],
+    	    "title": "Auction Software",
+    	    "controller": "ListingController"
+    	},
+    	{% endif %}
+    	{% if with_archive %}
+    	{
+    	    "name": "archive",
+    	    "scripts": [
+        		"/{{ parts['nginx.conf'].static_path }}/vendor.js",
+        		"/{{ parts['nginx.conf'].static_path }}/archive_app_simple.js"
+    	    ],
+    	    "title": "Auction Software",
+    	    "controller": "ArchiveController"
+    	},
+    	{% endif %}
+    	{
+        "name": "{{ name }}",
+    	  "scripts": [
+      		"/{{ parts['nginx.conf'].static_path }}/vendor.js",
+      		"/{{ parts['nginx.conf'].static_path }}/{{ app_script }}"
+    	  ],
+    	  "title": "Auction Software",
+    	  "controller": "AuctionController"
+    	}
+    ],
+    "js": {
+  	  "listApp": "src/app/index_app_simple.js",
+  	  "archiveApp": "src/app/archive_app_simple.js",
+  	  "auctionApp": "src/app/auction_app_simple.js"
+    },
+    "img": {
+	     "png": "src/assets/img/img/*.png",
+	      "icons": "src/assets/img/*.png"
+    },
+    "outDir": "{{ parts.buildout.directory}}/parts/",
+
+    "buildDir": "build",
+    "app_name": "{{ app_script }}",
+    "main_css": "{{ main_css }}",
+    "db_name": "{{ parts['project'].auctions_couchdb_databese_name }}",
+    "name": "{{ name }}",
+    "dbUrl": "http://localhost:9000/auctions",
+    "auctions_server":  "http://localhost:9001",
+    "devel": "{{ devel }}"
+}
