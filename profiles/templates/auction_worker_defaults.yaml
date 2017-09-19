@@ -40,9 +40,9 @@ handlers:
     class: ExtendedJournalHandler.ExtendedJournalHandler
     formatter: simpleFormater
     level: INFO
-    SYSLOG_IDENTIFIER: AUCTION_WORKER
+    SYSLOG_IDENTIFIER: {{ syslog_identifier }} 
 loggers:
-  Auction Worker:
+  {{ logger_name }}:
     level: INFO
     handlers:
     - console
