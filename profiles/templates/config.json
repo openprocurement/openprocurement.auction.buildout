@@ -24,7 +24,7 @@
 	    "name": "archive",
 	    "scripts": [
 		"/{{ parts['nginx.conf'].static_path }}/vendor.js",
-		"/{{ parts['nginx.conf'].static_path }}/{{ index_script }}"
+		"/{{ parts['nginx.conf'].static_path }}/{{ archive_script }}"
 	    ],
 	    "styles": [
 	        "/{{ parts['nginx.conf'].static_path }}/css/{{ main_css }}"
@@ -46,11 +46,6 @@
 	    "controller": "AuctionController"
 	}
     ],
-    "js": {
-	"listApp": "src/app/index_app_simple.js",
-	"archiveApp": "src/app/archive_app_simple.js",
-	"auctionApp": "src/app/auction_app_simple.js"
-    },
     "img": {
 	"png": "src/assets/img/img/*.png",
 	"icons": "src/assets/img/*.png"
@@ -62,5 +57,5 @@
     "main_css": "{{ main_css }}",
     "db_name": "{{ parts['project'].auctions_couchdb_databese_name }}",
     "name": "{{ name }}",
-    "devel": "{{ devel }}"
+    "devel": {{ devel }}
 }
