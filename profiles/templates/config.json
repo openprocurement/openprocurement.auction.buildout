@@ -1,7 +1,30 @@
 {
     "styles": [
-	"src/lib/angular-growl-2/build/angular-growl.min.css", 
+	"src/lib/angular-growl-2/build/angular-growl.min.css",
         "src/assets/css/starter-template.css"
+    ],
+    "packages":[
+      "node_modules/event-source-polyfill/eventsource.min.js",
+      "node_modules/jquery/dist/jquery.min.js",
+      "node_modules/angular/angular.min.js",
+      "node_modules/angular-translate/dist/angular-translate.min.js",
+      "node_modules/angular-cookies/angular-cookies.min.js",
+      "node_modules/angular-timer/dist/angular-timer.min.js",
+      "node_modules/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js",
+      "node_modules/angular-translate-storage-local/angular-translate-storage-local.min.js",
+      "node_modules/pouchdb/dist/pouchdb.min.js",
+      "node_modules/angular-gtm-logger/angular-gtm-logger.min.js",
+      "node_modules/bootstrap/dist/js/bootstrap.min.js",
+      "node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.min.js",
+      "node_modules/angular-growl-v2/build/angular-growl.js",
+      "node_modules/moment/min/moment.min.js",
+      "node_modules/moment/locale/uk.js",
+      "node_modules/moment/locale/ru.js",
+      "node_modules/moment-timezone/moment-timezone.js",
+      "node_modules/angular-mocks/angular-mocks.js",
+      "node_modules/angular-ellipses/src/truncate.js",
+      "node_modules/mathjs/dist/math.min.js",
+      "node_modules/ua-parser-js/dist/ua-parser.min.js"
     ],
     "fonts": "src/assets/fonts/*",
     "html": [
@@ -28,7 +51,7 @@
 	    ],
 	    "styles": [
 	        "/{{ parts['nginx.conf'].static_path }}/css/{{ main_css }}"
-	    ], 
+	    ],
 	    "title": "Auction Software",
 	    "controller": "ArchiveController"
 	},
@@ -41,7 +64,7 @@
 	    ],
  	    "styles": [
 	        "/{{ parts['nginx.conf'].static_path }}/css/{{ main_css }}"
-	    ], 
+	    ],
 	    "title": "Auction Software",
 	    "controller": "AuctionController"
 	}
