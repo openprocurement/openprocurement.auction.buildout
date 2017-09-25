@@ -1,6 +1,6 @@
 {
     "styles": [
-	"src/lib/angular-growl-2/build/angular-growl.min.css",
+	    "node_modules/angular-growl-v2/build/angular-growl.css",
         "src/assets/css/starter-template.css"
     ],
     "packages":[
