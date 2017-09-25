@@ -1,6 +1,6 @@
 {
     "styles": [
-	    "node_modules/angular-growl-v2/build/angular-growl.css",
+	"node_modules/angular-growl-v2/build/angular-growl.css",
         "src/assets/css/starter-template.css"
     ],
     "packages":[
@@ -31,13 +31,13 @@
     "archiveApp": ["./src/app/archive.js", "./src/app/config.js",
   		             "./src/app/controllers/ArchiveCtl.js"],
     "auctionApp": ["./src/app/auction.js",
-  		             "./src/app/filters/*.js",
-  		             "./src/app/translations.js",
-  		             "./src/app/config.js",
-  		             "./src/app/factories/*.js",
-  		             "./src/app/controllers/AuctionCtl.js",
-  		             "./src/app/controllers/OffCanvasCtl.js",
-  		             "./src/app/directives/*.js"],
+	           "./src/app/filters/*.js",
+	           "./src/app/translations.js",
+	           "./src/app/config.js",
+	           "./src/app/factories/*.js",
+	           "./src/app/controllers/AuctionCtl.js",
+	           "./src/app/controllers/OffCanvasCtl.js",
+	           "./src/app/directives/*.js"],
     "appUtils": ["./src/app/auction.js",
                  "./src/app/filters/*.js",
                  "./src/app/translations.js",
