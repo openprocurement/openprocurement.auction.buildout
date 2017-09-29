@@ -25,6 +25,7 @@ main:
      up_wait_sleep_min: {{up_wait_sleep_min}}
      queue_size: {{queue_size}}
 version: 1
+disable_existing_loggers: false
 
 formatters:
   simple:
