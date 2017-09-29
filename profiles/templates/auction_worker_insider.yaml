@@ -28,6 +28,7 @@ DOCUMENT_SERVICE:
   username: "{{ document_service_username| default('') }}"
   password: "{{ document_service_password| default('') }}"
 version: 1
+disable_existing_loggers: false
 formatters:
   simpleFormater:
     format: "%(name)s-%(levelname)s: %(message)s"
