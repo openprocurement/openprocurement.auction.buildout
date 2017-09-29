@@ -28,6 +28,7 @@ main:
 
 
 version: 1
+disable_existing_loggers: false
 
 formatters:
   simple:
