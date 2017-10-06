@@ -14,7 +14,7 @@ from subprocess import check_output
 
 PWD = os.path.dirname(os.path.realpath(__file__))
 CWD = os.getcwd()
-TENDER = os.path.join(PWD, 'src/openprocurement.auction.worker/openprocurement/auction/worker/tests/functional/data/tender_simple.json')
+TENDER = os.path.join(PWD, 'src/openprocurement.auction.insider/openprocurement/auction/insider/tests/functional/data/tender_insider.json')
 WORKER = 'auction_insider'
 CONFIG = 'auction_worker_insider.yaml'
 
