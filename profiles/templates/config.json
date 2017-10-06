@@ -1,8 +1,51 @@
 {
     "styles": [
-	"src/lib/angular-growl-2/build/angular-growl.min.css", 
+	"node_modules/angular-growl-v2/build/angular-growl.css",
         "src/assets/css/starter-template.css"
     ],
+    "packages":[
+      "node_modules/event-source-polyfill/eventsource.min.js",
+      "node_modules/jquery/dist/jquery.min.js",
+      "node_modules/angular/angular.min.js",
+      "node_modules/angular-translate/dist/angular-translate.min.js",
+      "node_modules/angular-cookies/angular-cookies.min.js",
+      "node_modules/angular-timer/dist/angular-timer.min.js",
+      "node_modules/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js",
+      "node_modules/angular-translate-storage-local/angular-translate-storage-local.min.js",
+      "node_modules/pouchdb/dist/pouchdb.min.js",
+      "node_modules/angular-gtm-logger/angular-gtm-logger.min.js",
+      "node_modules/bootstrap/dist/js/bootstrap.min.js",
+      "node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.min.js",
+      "node_modules/angular-growl-v2/build/angular-growl.js",
+      "node_modules/moment/min/moment.min.js",
+      "node_modules/moment/locale/uk.js",
+      "node_modules/moment/locale/ru.js",
+      "node_modules/moment-timezone/moment-timezone.js",
+      "node_modules/angular-mocks/angular-mocks.js",
+      "node_modules/angular-ellipses/src/truncate.js",
+      "node_modules/mathjs/dist/math.min.js",
+      "node_modules/ua-parser-js/dist/ua-parser.min.js"
+    ],
+    "listingApp": ["./src/app/index.js", "./src/app/config.js",
+                   "./src/app/controllers/ListingCtrl.js"],
+    "archiveApp": ["./src/app/archive.js", "./src/app/config.js",
+  		             "./src/app/controllers/ArchiveCtl.js"],
+    "auctionApp": ["./src/app/auction.js",
+	           "./src/app/filters/*.js",
+	           "./src/app/translations.js",
+	           "./src/app/config.js",
+	           "./src/app/factories/*.js",
+	           "./src/app/controllers/AuctionCtl.js",
+	           "./src/app/controllers/OffCanvasCtl.js",
+	           "./src/app/directives/*.js"],
+    "appUtils": ["./src/app/auction.js",
+                 "./src/app/filters/*.js",
+                 "./src/app/translations.js",
+                 "./src/app/config.js",
+                 "./src/app/factories/*.js",
+                 "./src/app/controllers/AuctionCtl.js",
+                 "./src/app/controllers/OffCanvasCtl.js",
+                 "./src/app/directives/*.js"],
     "fonts": "src/assets/fonts/*",
     "html": [
 	{% if with_index %}
@@ -28,7 +71,7 @@
 	    ],
 	    "styles": [
 	        "/{{ parts['nginx.conf'].static_path }}/css/{{ main_css }}"
-	    ], 
+	    ],
 	    "title": "Auction Software",
 	    "controller": "ArchiveController"
 	},
@@ -41,7 +84,7 @@
 	    ],
  	    "styles": [
 	        "/{{ parts['nginx.conf'].static_path }}/css/{{ main_css }}"
-	    ], 
+	    ],
 	    "title": "Auction Software",
 	    "controller": "AuctionController"
 	}
