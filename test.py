@@ -7,6 +7,10 @@
 # ./test.py multilot planning && ./test.py multilot run
 # or
 # ./test.py esco planning && ./test.py esco run
+# or
+# ./test.py esco_meat planning && ./test.py esco_meat run
+# or
+# ./test.py esco_meat_multilot planning && ./test.py esco_meat_multilot run
 
 import os
 import os.path
@@ -28,11 +32,15 @@ PWD = os.path.dirname(os.path.realpath(__file__))
 CWD = os.getcwd()
 TENDER = {'simple': os.path.join(PWD, 'src/openprocurement.auction.worker/openprocurement/auction/worker/tests/functional/data/tender_simple.json'),
           'multilot': os.path.join(PWD, 'src/openprocurement.auction.worker/openprocurement/auction/worker/tests/functional/data/tender_multilot.json'),
-          'esco': 'src/openprocurement.auction.esco/openprocurement/auction/esco/tests/functional/data/tender_esco.json'}
+          'esco': 'src/openprocurement.auction.esco/openprocurement/auction/esco/tests/functional/data/tender_esco.json',
+          'esco_meat': 'src/openprocurement.auction.esco/openprocurement/auction/esco/tests/functional/data/tender_esco_meat.json',
+          'esco_meat_multilot': 'src/openprocurement.auction.esco/openprocurement/auction/esco/tests/functional/data/tender_esco_meat_multilot.json'}
 
 WORKER = {'simple': 'auction_worker',
           'multilot': 'auction_worker',
-          'esco': 'auction_esco'}
+          'esco': 'auction_esco',
+          'esco_meat': 'auction_esco',
+          'esco_meat_multilot': 'auction_esco'}
 
 
 @contextlib.contextmanager
