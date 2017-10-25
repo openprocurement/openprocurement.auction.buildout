@@ -1,2 +1,0 @@
-#!/bin/bash
-/bin/journalctl -o json --user -f --lines=0| {{ parts.buildout['bin-directory']}}/python_interpreter {{ parts.buildout['bin-directory'] }}/loggly_pipe.py -t  {{ api_key }} -b 1

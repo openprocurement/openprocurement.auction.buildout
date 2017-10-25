@@ -1,5 +1,2 @@
 setuptools==33.1.1
 zc.buildout==2.9.4
-git+https://github.com/systemd/python-systemd.git#egg=systemd
-jarn.mkrelease
-python-dateutil
