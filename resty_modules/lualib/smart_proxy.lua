@@ -34,7 +34,7 @@ function _M.get_proxy_path(redis_url, sentinels)
         else
             -- Traling endslash
             local end_slash_index = proxy_pass_value_redis:match'^.*()/$'
-            if end_slash_index != nil then
+            if end_slash_index ~= nil then
                proxy_pass_value_redis = string.sub(proxy_pass_value_redis, 0, end_slash_index -1 )
             end
             ngx.var.target = proxy_pass_value_redis
