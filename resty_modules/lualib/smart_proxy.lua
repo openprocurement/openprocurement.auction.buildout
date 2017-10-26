@@ -1,7 +1,7 @@
 local _M = {}
 
 local lrucache = require "resty.lrucache"
-local c, err = lrucache.new(1000)  -- allow up to 200 items in the cache
+local c, err = lrucache.new(1000)
 if not c then
     return error("failed to create the cache: " .. (err or "unknown"))
 end
@@ -22,7 +22,6 @@ function _M.get_proxy_path(redis_url, sentinels)
         end
 
         local proxy_pass_value_redis, err = redis:get(match[2])
-
         if err or proxy_pass_value_redis == ngx.null then
             -- IF LOGIN THEN REDIRECT
             if match[3] == "login" then
@@ -33,7 +32,13 @@ function _M.get_proxy_path(redis_url, sentinels)
             return ngx.exit(ngx.HTTP_NOT_FOUND)
 
         else
+            -- Traling endslash
+            local end_slash_index = proxy_pass_value_redis:match'^.*()/$'
+            if end_slash_index != nil then
+               proxy_pass_value_redis = string.sub(proxy_pass_value_redis, 0, end_slash_index -1 )
+            end
             ngx.var.target = proxy_pass_value_redis
+            -- Cache on 60 sec
             c:set(match[2], ngx.var.target, 60)
         end
     end
