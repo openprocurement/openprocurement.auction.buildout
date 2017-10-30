@@ -1,4 +1,4 @@
-#!bin/python_interpreter
+#! bin/python_interpreter
 
 # HOW TO USE:
 # run the command:
