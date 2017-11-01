@@ -89,4 +89,4 @@ if __name__ == '__main__':
 
     actions = globals()
     if args.action_type in actions:
-        actions.get(args.action_type)(TENDER[args.auction_type], WORKER[args.auction_type], "11111111111111111111111111111111")
+        actions.get(args.action_type)(TENDER[args.auction_type], WORKER[args.auction_type], "2" * 32)
