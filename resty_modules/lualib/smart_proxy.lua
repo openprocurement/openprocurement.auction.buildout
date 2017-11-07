@@ -6,7 +6,7 @@ if not c then
     return error("failed to create the cache: " .. (err or "unknown"))
 end
 
-function _M.get_proxy_path(redis_url, sentinels)
+function _M.get_proxy_path(protocol, redis_url, sentinels)
     local regex = "^/(tenders|esco-tenders)/([0-9a-zA-Z_]+)/(.+)$"
     local match = ngx.re.match(ngx.var.uri, regex)
     local proxy_pass_value_cache, stale_data = c:get(match[2])
@@ -43,7 +43,7 @@ function _M.get_proxy_path(redis_url, sentinels)
         end
     end
 
-    ngx.req.set_header("X-Forwarded-Path", ngx.var.scheme .. "://" .. ngx.var.http_host .. ngx.var.uri)
+    ngx.req.set_header("X-Forwarded-Path", protocol .. "://" .. ngx.var.http_host .. ngx.var.uri)
     ngx.req.set_uri("/" .. match[3])
 
 end
