@@ -23,24 +23,34 @@ import tempfile
 from dateutil.tz import tzlocal
 from subprocess import check_output
 from datetime import datetime, timedelta
-
+from openprocurement.auction.worker.tests.data.data import SIMPLE_TENDER_ID, \
+    MULTILOT_TENDER_ID
+from openprocurement.auction.esco.tests.data.data import ESCO_TENDER_ID, \
+    ESCO_MEAT_TENDER_ID, ESCO_MEAT_MULTILOT_TENDER_ID
 
 PAUSE_SECONDS = timedelta(seconds=120)
 
 
 PWD = os.path.dirname(os.path.realpath(__file__))
 CWD = os.getcwd()
-TENDER = {'simple': os.path.join(PWD, 'src/openprocurement.auction.worker/openprocurement/auction/worker/tests/functional/data/tender_simple.json'),
-          'multilot': os.path.join(PWD, 'src/openprocurement.auction.worker/openprocurement/auction/worker/tests/functional/data/tender_multilot.json'),
-          'esco': 'src/openprocurement.auction.esco/openprocurement/auction/esco/tests/functional/data/tender_esco.json',
-          'esco_meat': 'src/openprocurement.auction.esco/openprocurement/auction/esco/tests/functional/data/tender_esco_meat.json',
-          'esco_meat_multilot': 'src/openprocurement.auction.esco/openprocurement/auction/esco/tests/functional/data/tender_esco_meat_multilot.json'}
 
-WORKER = {'simple': 'auction_worker',
-          'multilot': 'auction_worker',
-          'esco': 'auction_esco',
-          'esco_meat': 'auction_esco',
-          'esco_meat_multilot': 'auction_esco'}
+
+TENDER_DATA = \
+    {'simple': {'path': 'src/openprocurement.auction.worker/openprocurement/auction/worker/tests/functional/data/tender_simple.json',
+                'worker': 'auction_worker',
+                'id': SIMPLE_TENDER_ID},
+     'multilot': {'path': 'src/openprocurement.auction.worker/openprocurement/auction/worker/tests/functional/data/tender_multilot.json',
+                  'worker': 'auction_worker',
+                  'id': MULTILOT_TENDER_ID},
+     'esco': {'path': 'src/openprocurement.auction.esco/openprocurement/auction/esco/tests/functional/data/tender_esco.json',
+              'worker': 'auction_esco',
+              'id': ESCO_TENDER_ID},
+     'esco_meat': {'path': 'src/openprocurement.auction.esco/openprocurement/auction/esco/tests/functional/data/tender_esco_meat.json',
+                   'worker': 'auction_esco',
+                   'id': ESCO_MEAT_TENDER_ID},
+     'esco_meat_multilot': {'path': 'src/openprocurement.auction.esco/openprocurement/auction/esco/tests/functional/data/tender_esco_meat_multilot.json',
+                            'worker': 'auction_esco',
+                            'id': ESCO_MEAT_MULTILOT_TENDER_ID}}
 
 
 @contextlib.contextmanager
@@ -89,4 +99,6 @@ if __name__ == '__main__':
 
     actions = globals()
     if args.action_type in actions:
-        actions.get(args.action_type)(TENDER[args.auction_type], WORKER[args.auction_type], "2" * 32)
+        actions.get(args.action_type)(TENDER_DATA[args.auction_type]['path'],
+                                      TENDER_DATA[args.auction_type]['worker'],
+                                      TENDER_DATA[args.auction_type]['id'])
