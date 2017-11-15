@@ -1,9 +1,11 @@
 ---
-TENDERS_API_URL: "{{TENDERS_API_URL}}"
-TENDERS_API_VERSION: "{{TENDERS_API_VERSION}}"
-TENDERS_API_TOKEN: "{{TENDERS_API_TOKEN}}"
+resource_api_server: "{{resource_api_url}}"
+resource_api_version: "{{resource_api_version}}"
+resource_api_token: "{{resource_api_token}}"
+resource_name: "{{resource_name}}"
 AUCTIONS_URL: "{{AUCTIONS_URL}}"
 HASH_SECRET: "{{HASH_SECRET}}"
+SIGNATURE_KEY: "{{SIGNATURE_KEY}}"
 COUCH_DATABASE: "{{COUCH_DATABASE}}"
 OAUTH_CLIENT_ID: "{{OAUTH_CLIENT_ID}}"
 OAUTH_CLIENT_SECRET: "{{OAUTH_CLIENT_SECRET}}"
@@ -26,6 +28,7 @@ DOCUMENT_SERVICE:
   username: "{{ document_service_username| default('') }}"
   password: "{{ document_service_password| default('') }}"
 version: 1
+disable_existing_loggers: false
 formatters:
   simpleFormater:
     format: "%(name)s-%(levelname)s: %(message)s"
@@ -38,9 +41,9 @@ handlers:
     class: ExtendedJournalHandler.ExtendedJournalHandler
     formatter: simpleFormater
     level: INFO
-    SYSLOG_IDENTIFIER: AUCTION_WORKER
+    SYSLOG_IDENTIFIER: {{ syslog_identifier }} 
 loggers:
-  Auction Worker:
+  {{ logger_name }}:
     level: INFO
     handlers:
     - console

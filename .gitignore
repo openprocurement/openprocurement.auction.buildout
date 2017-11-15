@@ -4,23 +4,30 @@ __pycache__/
 
 # C extensions
 *.so
-
+.idea/
 # Distribution / packaging
 .Python
+pip-selfcheck*
+*~
 env/
 etc/
 build/
+include/
 develop-eggs/
 dist/
 downloads/
 eggs/
+include/
 lib/
 lib64/
+logs/
 parts/
 sdist/
 var/
 *.egg-info/
 .installed.cfg
+pip-selfcheck.json
+lib64
 *.egg
 bin/*
 src/*
@@ -56,3 +63,6 @@ docs/_build/
 # PyBuilder
 target/
 .mr.developer.cfg
+
+# pyenv
+.python-version
