@@ -5,7 +5,15 @@ echo "Cleanup {{ parts.buildout.directory }}/parts/assets_releases/*"
 echo "-------------------------------------------------------------"
 rm -f {{ parts.buildout.directory }}/parts/assets_releases/*.gz
 echo "-------------------------------------------------------------"
-filename=auction_assets_`git rev-parse --abbrev-ref HEAD`_`date -u +"%Y-%m-%dT%H:%M:%SZ"`.tar.gz
+tag=`git rev-parse --abbrev-ref HEAD`_`date -u +"%Y_%m_%dT%H_%M_%SZ"`
+filename=$tag".tar.gz"
+cd {{ parts.buildout.directory }}/src/openprocurement.auction.js
+git tag $tag
+git push origin $tag
+cd {{ parts.buildout.directory }}/src/openprocurement.auction.esco-js
+git tag $tag
+git push origin $tag
+cd {{ parts.buildout.directory }}
 echo "Prepare $filename"
 echo "-------------------------------------------------------------"
 tar -zcvf {{ parts.buildout.directory }}/parts/assets_releases/$filename -C {{ parts.buildout.directory }}/parts/www .
