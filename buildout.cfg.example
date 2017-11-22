@@ -3,7 +3,7 @@ extends =
     profiles/devel.cfg
 
 [versions]
-setuptools=11.3
+setuptools = 33.1.1
 circus = 0.13.0
 
 [sources]
