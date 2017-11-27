@@ -5,7 +5,7 @@ echo "Cleanup {{ parts.buildout.directory }}/parts/lua_releases/*"
 echo "-------------------------------------------------------------"
 rm -f {{ parts.buildout.directory }}/parts/lua_releases/*.gz
 echo "-------------------------------------------------------------"
-filename=auction_lua_releases_`git rev-parse --abbrev-ref HEAD`_`date -u +"%Y-%m-%dT%H:%M:%SZ"`.tar.gz
+filename=`git rev-parse --abbrev-ref HEAD`_`date -u +"%Y_%m_%dT%H_%M_%SZ"`.tar.gz
 echo "Prepare $filename"
 echo "-------------------------------------------------------------"
 tar -zcvf {{ parts.buildout.directory }}/parts/lua_releases/$filename -C {{ parts.buildout.directory }}/resty_modules/lualib .
