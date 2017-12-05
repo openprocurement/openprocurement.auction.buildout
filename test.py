@@ -1,5 +1,8 @@
 #! bin/python_interpreter
 
+# BEFORE SCRIPT RUN YOU SHOULD STOP CHRONOGRAPH:
+# bin/circusctl stop chronograph
+
 # HOW TO USE:
 # run the command:
 # ./test.py simple planning && ./test.py simple run
