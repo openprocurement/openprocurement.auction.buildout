@@ -9,7 +9,7 @@ import argparse
 import contextlib
 import tempfile
 from dateutil.tz import tzlocal
-from subprocess import check_output
+from subprocess import check_output, Popen
 
 
 PWD = os.path.dirname(os.path.realpath(__file__))
@@ -17,6 +17,7 @@ CWD = os.getcwd()
 TENDER = os.path.join(PWD, 'src/openprocurement.auction.insider/openprocurement/auction/insider/tests/functional/data/tender_insider.json')
 WORKER = 'auction_insider'
 CONFIG = 'auction_worker_insider.yaml'
+AUCTIONS_COUNT = 2
 
 
 @contextlib.contextmanager
@@ -32,21 +33,45 @@ def update_auctionPeriod(path, auction_type):
     auction_file.close()
 
 
-def planning(tender_file_path, auction_id):
+def planning(tender_file_path, auction_id, testing=False):
     with update_auctionPeriod(tender_file_path, auction_type='simple') as auction_file:
-        os.system('{0}/bin/{1} planning {2}'
+        if testing:
+            os.system('{0}/bin/{1} planning {2}'
                      ' {0}/etc/{3} --planning_procerude partial_db --auction_info {4}'.format(CWD, WORKER,
                                                                                                   auction_id, CONFIG,
                                                                                                   auction_file))
-    os.system('sleep 3')
-
-def run(tender_file_path, auction_id):
-    with update_auctionPeriod(tender_file_path, auction_type='simple') as auction_file:
-        check_output('{0}/bin/{1} run {2}'
+            os.system('sleep 3')
+        else:
+            Popen('{0}/bin/{1} planning {2}'
                      ' {0}/etc/{3} --planning_procerude partial_db --auction_info {4}'.format(CWD, WORKER,
                                                                                                   auction_id, CONFIG,
+                                                                                                  auction_file))
+
+
+def run(tender_file_path, auction_id, testing=False):
+    with update_auctionPeriod(tender_file_path, auction_type='simple') as auction_file:
+        if not testing:
+            check_output('{0}/bin/{1} run {2}'
+                         ' {0}/etc/{3} --planning_procerude partial_db --auction_info {4}'.format(CWD, WORKER,
+                                                                                                  auction_id, CONFIG,
                                                                                                   auction_file).split())
-    os.system('sleep 3')
+            os.system('sleep 3')
+        else:
+            Popen('{0}/bin/{1} run {2}'
+                  ' {0}/etc/{3} --planning_procerude partial_db --auction_info {4}'.format(
+                CWD, WORKER,
+                auction_id, CONFIG,
+                auction_file).split())
+
+
+def load_testing(tender_file_path, count):
+    for i in xrange(0, count):
+        auction_id = "111111111111111111111111111{0:05d}".format(i)
+        planning(TENDER, auction_id, testing=True)
+        run(TENDER, auction_id, testing=True)
+
+
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -54,5 +79,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     actions = globals()
-    if args.type in actions:
+    if args.type in actions and args.type == 'load_testing':
+        actions.get(args.type)(TENDER, AUCTIONS_COUNT)
+    elif args.type in actions and args.type != 'load_testing':
         actions.get(args.type)(TENDER, "11111111111111111111111111111111")
