@@ -61,7 +61,6 @@ def planning(tender_file_path, worker, auction_id, config,
                           auction_file).split())
         if wait_for_result:
             p.wait()
-            sleep(1)
 
 
 def run(tender_file_path, worker, auction_id, config, wait_for_result=False):
@@ -73,7 +72,6 @@ def run(tender_file_path, worker, auction_id, config, wait_for_result=False):
                           auction_file).split())
         if wait_for_result:
             p.wait()
-            sleep(1)
 
 
 def load_testing(tender_file_path, worker, config, count, tender_id_base,
