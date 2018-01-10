@@ -4,7 +4,7 @@
 # or
 # ./test.py insider planning --wait_for_result && ./test.py insider run
 #
-# ./test.py insider load-testing --auctions_number 10000
+# ./test.py insider load-testing --auctions_number 10000 --concurency 1000
 
 import os.path
 import json
@@ -12,10 +12,10 @@ import argparse
 import contextlib
 import tempfile
 from dateutil.tz import tzlocal
+from gevent.pool import Pool
 from subprocess import Popen
 from datetime import datetime, timedelta
 from math import ceil, log10
-from time import sleep
 
 PAUSE_SECONDS = timedelta(seconds=120)
 PWD = os.path.dirname(os.path.realpath(__file__))
@@ -75,21 +75,30 @@ def run(tender_file_path, worker, auction_id, config, wait_for_result=False):
 
 
 def load_testing(tender_file_path, worker, config, count, tender_id_base,
-                 run_auction=False, wait_for_result=False):
+                 concurency, run_auction=False, wait_for_result=False):
     positions = int(ceil(log10(count)))
 
     auction_id_template = \
         tender_id_base * (32 - positions) + '{{0:0{}d}}'.format(positions)
 
+    pool = Pool(concurency)
     for i in xrange(0, count):
         auction_id = auction_id_template.format(i)
-        planning(tender_file_path, worker, auction_id, config, wait_for_result)
+        pool.apply_async(
+            planning,
+            (tender_file_path, worker, auction_id, config, wait_for_result)
+        )
         if run_auction:
-            run(tender_file_path, worker, auction_id, config, wait_for_result)
+            pool.apply_async(
+                run,
+                (tender_file_path, worker, auction_id, config, wait_for_result)
+            )
+        pool.wait_available()
 
 
 def main(auction_type, action_type, tender_file_path='', tender_id_base=None,
-         auctions_number=0, run_auction=False, wait_for_result=False):
+         auctions_number=0, concurency=500, run_auction=False,
+         wait_for_result=False):
     actions = globals()
     tender_id_base_local = TENDER_DATA[auction_type]['tender_id_base'] if \
         tender_id_base is None else tender_id_base
@@ -102,6 +111,7 @@ def main(auction_type, action_type, tender_file_path='', tender_id_base=None,
                 TENDER_DATA[auction_type]['config'],
                 auctions_number,
                 tender_id_base_local,
+                concurency,
                 run_auction,
                 wait_for_result
             )
@@ -120,10 +130,11 @@ if __name__ == '__main__':
     parser.add_argument('--tender_file_path', type=str, nargs='?', default='')
     parser.add_argument('--tender_id_base', type=str, nargs='?', default=None)
     parser.add_argument('--auctions_number', type=int, nargs='?', default=1)
+    parser.add_argument('--concurency', type=int, nargs='?', default=500)
     parser.add_argument('--run_auction', action='store_true')
     parser.add_argument('--wait_for_result', action='store_true')
 
     args = parser.parse_args()
     main(args.auction_type, args.action_type, args.tender_file_path,
-         args.tender_id_base, args.auctions_number, args.run_auction,
-         args.wait_for_result)
+         args.tender_id_base, args.auctions_number, args.concurency,
+         args.run_auction, args.wait_for_result)
