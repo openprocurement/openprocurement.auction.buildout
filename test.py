@@ -14,6 +14,8 @@
 # ./test.py esco_meat planning && ./test.py esco_meat run
 # or
 # ./test.py esco_meat_multilot planning && ./test.py esco_meat_multilot run
+# for saving updated document to static file use --static :
+# ./test.py esco_meat_multilot planning --static <path> && ./test.py esco_meat run --static <path>
 
 import os
 import os.path
@@ -68,9 +70,15 @@ def update_auctionPeriod(path, auction_type):
         for lot in data['data']['lots']:
             lot['auctionPeriod']['startDate'] = new_start_time
 
-    with tempfile.NamedTemporaryFile(delete=False) as auction_file:
-        json.dump(data, auction_file)
-        auction_file.seek(0)
+    if args.static:
+        with open(PWD + '/' + args.static, 'w') as auction_file:
+            json.dump(data, auction_file, indent=4)
+            auction_file.seek(0)
+    else:
+        with tempfile.NamedTemporaryFile(delete=False) as auction_file:
+            json.dump(data, auction_file)
+            auction_file.seek(0)
+
     yield auction_file.name
     auction_file.close()
 
@@ -97,6 +105,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('auction_type', type=str)
     parser.add_argument('action_type', type=str)
+    parser.add_argument('--static', dest='static')
 
     args = parser.parse_args()
 
