@@ -4,7 +4,7 @@
 # or
 # ./test.py insider planning --wait_for_result && ./test.py insider run
 #
-# ./test.py insider load-testing --auctions_number 10000 --concurency 1000
+# ./test.py insider load-testing --auctions_number 1000 --concurency 100
 
 import os.path
 import json
@@ -13,7 +13,8 @@ import contextlib
 import tempfile
 from dateutil.tz import tzlocal
 from gevent.pool import Pool
-from subprocess import Popen
+#from gevent.subprocess import Popen
+from gevent.subprocess import check_output
 from datetime import datetime, timedelta
 from math import ceil, log10
 
@@ -51,16 +52,21 @@ def update_auctionPeriod(path, auction_type):
     auction_file.close()
 
 
+# TODO: should be studied and improved
 def planning(tender_file_path, worker, auction_id, config,
              wait_for_result=False):
     with update_auctionPeriod(tender_file_path,
                               auction_type='simple') as auction_file:
-        p = Popen('{0}/bin/{1} planning {2} {0}/etc/{3} --planning_procerude '
-                  'partial_db --auction_info {4}'
-                  .format(CWD, worker, auction_id, config,
-                          auction_file).split())
-        if wait_for_result:
-            p.wait()
+        command = '{0}/bin/{1} planning {2} {0}/etc/{3} ' \
+                  '--planning_procerude partial_db --auction_info {4}'\
+            .format(CWD, worker, auction_id, config, auction_file).split()
+        check_output(command.split())
+        # p = Popen('{0}/bin/{1} planning {2} {0}/etc/{3} --planning_procerude '
+        #           'partial_db --auction_info {4}'
+        #           .format(CWD, worker, auction_id, config,
+        #                   auction_file).split())
+        # if wait_for_result:
+        #     p.wait()
 
 
 def run(tender_file_path, worker, auction_id, config, wait_for_result=False):
@@ -82,7 +88,7 @@ def load_testing(tender_file_path, worker, config, count, tender_id_base,
         tender_id_base * (32 - positions) + '{{0:0{}d}}'.format(positions)
 
     pool = Pool(concurency)
-    for i in xrange(0, count):
+    for i in xrange(count):
         auction_id = auction_id_template.format(i)
         pool.apply_async(
             planning,
@@ -94,10 +100,11 @@ def load_testing(tender_file_path, worker, config, count, tender_id_base,
                 (tender_file_path, worker, auction_id, config, wait_for_result)
             )
         pool.wait_available()
+    pool.join()
 
 
 def main(auction_type, action_type, tender_file_path='', tender_id_base=None,
-         auctions_number=0, concurency=500, run_auction=False,
+         auctions_number=0, concurency=100, run_auction=False,
          wait_for_result=False):
     actions = globals()
     tender_id_base_local = TENDER_DATA[auction_type]['tender_id_base'] if \
