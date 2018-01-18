@@ -59,7 +59,7 @@ def planning(tender_file_path, worker, auction_id, config,
                               auction_type='simple') as auction_file:
         command = '{0}/bin/{1} planning {2} {0}/etc/{3} ' \
                   '--planning_procerude partial_db --auction_info {4}'\
-            .format(CWD, worker, auction_id, config, auction_file).split()
+            .format(CWD, worker, auction_id, config, auction_file)
         check_output(command.split())
         # p = Popen('{0}/bin/{1} planning {2} {0}/etc/{3} --planning_procerude '
         #           'partial_db --auction_info {4}'
