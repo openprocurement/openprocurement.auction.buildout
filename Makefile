@@ -18,3 +18,7 @@ help:
 
 clean:
 	@rm -rf eggs/ develop-eggs/ bin/ etc/ lib/ parts/ include/ logs/
+
+
+run:
+	bin/circusd --daemon
