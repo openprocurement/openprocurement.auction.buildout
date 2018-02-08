@@ -3,5 +3,5 @@ Buildout for OpenProcurement Auction
 
 For build use Makefile
 ```
-    make install
+make install
 ```
