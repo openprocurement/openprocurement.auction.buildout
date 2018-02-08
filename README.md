@@ -3,7 +3,7 @@ Buildout for OpenProcurement Auction
 
 For build use Makefile
 ```
-    make install
+make install
 ```
 
 System requirements (Fedora 27):
