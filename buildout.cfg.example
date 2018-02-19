@@ -12,3 +12,4 @@ chromedriver = git https://github.com/enkidulan/chromedriver.git
 [project]
 resource_api_url = https://lb.api-sandbox.ea.openprocurement.org/
 resource_api_version = 0
+with_powerranger = 1
