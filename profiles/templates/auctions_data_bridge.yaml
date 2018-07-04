@@ -6,18 +6,16 @@ main:
   couch_url: {{couch_url}}
   auctions_db: {{auctions_db}}
   timezone: {{timezone}}
-  auction_worker: {{auction_worker}}
-  auction_worker_config: {{auction_worker_config}}
-  plugins: [{{ parts['project'].plugins }}]
-  {% for plugin in parts['project'].plugins.split(',') %}
-  {%set name = plugin|trim%}
-  {% if name in parts %}
-  {{ name }}:
-    {% for key, value in parts.get(name, {}).items() %}
+  plugins:
+    {% for plugin in parts['project'].plugins.split(',') %}
+    {%set name = plugin|trim%}
+    {% if name in parts %}
+    {{ name }}:
+      {% for key, value in parts.get(name, {}).items() %}
       {{ key }}: {{ value }}
+      {% endfor %}
+    {% endif %}
     {% endfor %}
-  {% endif %}
-  {% endfor %}
   retrievers_params:
      down_requests_sleep: {{down_requests_sleep}}
      up_requests_sleep: {{up_requests_sleep}}
