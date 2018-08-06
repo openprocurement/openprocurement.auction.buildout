@@ -6,8 +6,6 @@ main:
   couch_url: {{couch_url}}
   auctions_db: {{auctions_db}}
   timezone: {{timezone}}
-  auction_worker: {{auction_worker}}
-  auction_worker_config: {{auction_worker_config}}
   {% for key, value in parts.get('auction_worker_configs', {}).items() %}
   {{ key }}: {{ value }}
   {% endfor %}
@@ -15,16 +13,16 @@ main:
   limit_free_memory: {{limit_free_memory|default(0.15)}}
   web_app: {{web_app|default('')}}
   use_consul: {{ use_consul }}
-  plugins: [{{ parts['project'].plugins }}]
-  {% for plugin in parts['project'].plugins.split(',') %}
-  {%set name = plugin|trim%}
-  {% if name in parts %}
-  {{ name }}:
-    {% for key, value in parts.get(name, {}).items() %}
+  plugins:
+    {% for plugin in parts['project'].plugins.split(',') %}
+    {%set name = plugin|trim%}
+    {% if name in parts %}
+    {{ name }}:
+      {% for key, value in parts.get(name, {}).items() %}
       {{ key }}: {{ value }}
+      {% endfor %}
+    {% endif %}
     {% endfor %}
-  {% endif %}
-  {% endfor %}
 
 
 version: 1
