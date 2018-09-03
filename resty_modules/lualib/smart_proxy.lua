@@ -15,9 +15,9 @@ function _M.get_proxy_path(protocol, redis_url, sentinels)
     -- Uncomment the following line to enable debugging headers
     --ngx.header["X-Smart-Proxy-Debug"] = {ngx.var[1], ngx.var[2], ngx.var[3]}
 
-    local resource_id = ngx.var[1]
-    local pass_uri = ngx.var[2]
-
+    local resource_type = ngx.var[1]
+    local resource_id = ngx.var[2]
+    local pass_uri = ngx.var[3]
     -- Try to get the target for the nginx's proxy_pass directive from the LRU cache
     local proxy_pass_value_cache, stale_data = cache:get(resource_id)
 
@@ -47,7 +47,7 @@ function _M.get_proxy_path(protocol, redis_url, sentinels)
                 -- with a "wait=1" parameter appended.
                 local args = ngx.req.get_uri_args()
                 args["wait"] = "1"
-                ngx.redirect("/auctions/" .. resource_id .. "?" .. ngx.encode_args(args))
+                ngx.redirect("/" .. resource_type .. "/" .. resource_id .. "?" .. ngx.encode_args(args))
             end
             -- Return 404 if pass_uri is not known
             return ngx.exit(ngx.HTTP_NOT_FOUND)
