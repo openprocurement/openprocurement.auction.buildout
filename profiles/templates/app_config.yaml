@@ -1,0 +1,17 @@
+---
+redis_url: {{redis_url}}
+sentinels: {{sentinels_list}}
+redis_password: {{redis_password}}
+redis_database: {{redis_database}}
+sentinel_cluster_name: {{sentinel_cluster_name}}
+external_couch_url: {{external_couch_url}}
+internal_couch_url: {{internal_couch_url}}
+proxy_internal_couch_url: {{proxy_internal_couch_url}}
+auctions_db: {{auctions_db}}
+timezone: {{timezone}}
+hash_secret_key: {{HASH_SECRET_KEY}}
+preferred_url_scheme: {{preferred_url_scheme}}
+debug: {{debug}}
+auto_build: {{auto_build}}
+limit_replications_progress: {{limit_replications_progress}}
+limit_replications_func : {{limit_replications_func}}
