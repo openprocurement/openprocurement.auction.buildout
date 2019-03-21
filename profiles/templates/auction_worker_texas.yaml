@@ -20,7 +20,8 @@ planning_procerude: "{{planning_procerude}}"
 sandbox_mode: "{{sandbox_mode}}"
 deadline:
   enabled: {{ not sandbox_mode }}
-  deadline_hour: {{ deadline_hour }}
+  deadline_time:
+    hour: {{ deadline_hour }}
 datasource:
   type: "openprocurement.api"
   resource_api_server: "{{resource_api_url}}"
