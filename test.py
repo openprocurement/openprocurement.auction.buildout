@@ -1,9 +1,11 @@
+#!bin/python_interpreter
 # Examples of usage:
+# ./test.py simple planning --wait_for_result
 # ./test.py insider planning --wait_for_result
+# ./test.py simple run
 # ./test.py insider run
-# or
-# ./test.py insider planning --wait_for_result && ./test.py insider run
-#
+# ./test.py insider planning --wait_for_result --tender_id 11111111111111111111111111111111 && ./test.py insider run --tender_id 11111111111111111111111111111111
+# ./test.py simple planning --wait_for_result && ./test.py simple run
 # ./test.py insider load-testing --auctions_number 1000 --concurency 100
 
 import os.path
@@ -13,7 +15,7 @@ import contextlib
 import tempfile
 from dateutil.tz import tzlocal
 from gevent.pool import Pool
-#from gevent.subprocess import Popen
+from gevent.subprocess import Popen
 from gevent.subprocess import check_output
 from datetime import datetime, timedelta
 from math import ceil, log10
@@ -23,14 +25,22 @@ PWD = os.path.dirname(os.path.realpath(__file__))
 CWD = os.getcwd()
 
 TENDER_DATA = \
-    {'insider': {'path': os.path.join(
-        PWD, 'src', 'openprocurement.auction.insider', 'openprocurement',
-        'auction', 'insider', 'tests', 'functional', 'data',
-        'tender_insider.json'),
+    {'simple': {'path': os.path.join(
+         PWD, 'src', 'openprocurement.auction.worker', 'openprocurement',
+         'auction', 'worker', 'tests', 'functional', 'data',
+         'tender_simple.json'),
+                'worker': 'auction_worker',
+                'id': '1'*32,
+                'config': 'auction_worker_defaults.yaml',
+                'tender_id_base': '1'},
+     'insider': {'path': os.path.join(
+         PWD, 'src', 'openprocurement.auction.insider', 'openprocurement',
+         'auction', 'insider', 'tests', 'functional', 'data',
+         'tender_insider.json'),
                  'worker': 'auction_insider',
-                 'id': '1'*32,
+                 'id': '2'*32,
                  'config': 'auction_worker_insider.yaml',
-                 'tender_id_base': '1'}}
+                 'tender_id_base': '2'}}
 
 
 @contextlib.contextmanager
@@ -105,10 +115,10 @@ def load_testing(tender_file_path, worker, config, count, tender_id_base,
 
 def main(auction_type, action_type, tender_file_path='', tender_id_base=None,
          auctions_number=0, concurency=100, run_auction=False,
-         wait_for_result=False):
+         wait_for_result=False, tender_id=''):
     actions = globals()
-    tender_id_base_local = TENDER_DATA[auction_type]['tender_id_base'] if \
-        tender_id_base is None else tender_id_base
+    tender_id_base_local = tender_id_base if tender_id_base else \
+        TENDER_DATA[auction_type]['tender_id_base']
     path = tender_file_path or TENDER_DATA[auction_type]['path']
     if action_type in [elem.replace('_', '-') for elem in actions]:
         if action_type == 'load-testing':
@@ -123,9 +133,10 @@ def main(auction_type, action_type, tender_file_path='', tender_id_base=None,
                 wait_for_result
             )
         else:
+            tender_id = tender_id or TENDER_DATA[auction_type]['id']
             actions.get(action_type)(path,
                                      TENDER_DATA[auction_type]['worker'],
-                                     TENDER_DATA[auction_type]['id'],
+                                     tender_id,
                                      TENDER_DATA[auction_type]['config'],
                                      wait_for_result)
 
@@ -140,8 +151,9 @@ if __name__ == '__main__':
     parser.add_argument('--concurency', type=int, nargs='?', default=500)
     parser.add_argument('--run_auction', action='store_true')
     parser.add_argument('--wait_for_result', action='store_true')
+    parser.add_argument('--tender_id', type=str, nargs='?', default='')
 
     args = parser.parse_args()
     main(args.auction_type, args.action_type, args.tender_file_path,
          args.tender_id_base, args.auctions_number, args.concurency,
-         args.run_auction, args.wait_for_result)
+         args.run_auction, args.wait_for_result, args.tender_id)
